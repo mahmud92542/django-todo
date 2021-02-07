@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="accordion" id="dash_accordion">
+  {% for d in department %}
+  <div class="card">
+    <div class="card-header" id="create">
+      <button
+        class="btn btn-d"
+        type="button"
+        data-toggle="collapse"
+        data-target="#{{ d }}"
+        aria-expanded="true"
+      >
+        {{ d.deptid }}
+      </button>
+      <form method="post" action="{% url 'department:create' d.id %}">
+        {% csrf_token %}
+        {% if d.id in permission_department_list %}
+        <input
+          type="submit"
+          class="btn btn-info"
+          value="Create"
+          style="float: right"
+        />
+        {% endif %}
+      </form>
+    </div>
+    <div id="{{ d }}" class="collapse" data-parent="#create">
+      <div class="card-body"></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

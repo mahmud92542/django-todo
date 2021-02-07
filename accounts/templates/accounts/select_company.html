@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %} {% if error %} {{ error }}
+<br />
+<br />
+{% endif %}
+
+<h1>Select Company</h1>
+{% for comp in allcomp %} {% for usercomp in usercompid %} {% if usercomp == comp.id %}
+<form method="POST" action="{% url 'selcom' %}">
+  {% csrf_token %}
+  <input
+    type="submit"
+    class="btn btn-info"
+    name="company"
+    value="{{ comp.name }}"
+  />
+</form>
+{% endif %} {% endfor %} {% endfor %} {% endblock %}
