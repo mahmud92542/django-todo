@@ -14,7 +14,6 @@ def dashboard(request, company_id):
 
     for dept in compdept:
         permission_department_list.append(dept.deptid.id)
-        print(permission_department_list)
     context = {
         'department': department,
         'compdept': compdept,

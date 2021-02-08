@@ -5,7 +5,8 @@
 
 <h1>Select Company</h1>
 {% for comp in allcomp %} {% for usercomp in usercompid %} {% if usercomp == comp.id %}
-<form method="POST" action="{% url 'selcom' %}">
+<a class="btn btn-info" href="{% url 'department:dashboard' comp.id %}">{{ comp.name }}</a>
+{% comment %} <form method="POST" action="{% url 'selcom' %}">
   {% csrf_token %}
   <input
     type="submit"
@@ -13,5 +14,7 @@
     name="company"
     value="{{ comp.name }}"
   />
-</form>
+</form> {% endcomment %}
 {% endif %} {% endfor %} {% endfor %} {% endblock %}
+
+#

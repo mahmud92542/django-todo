@@ -44,29 +44,22 @@ def login(request):
 
 # Company Selection method
 def selcom(request):
-    if request.method == 'POST':
-        # Getting company id from select company form
-        compdata = Company.objects.filter(name=request.POST['company'])
+    allcomp = Company.objects.all()  # Getting all data from Company model
+    # Getting company id for authenticated user which are given in the CompanyDeptUser model
+    comdeptuser = CompanyDeptUser.objects.filter(user=request.user)
+    compid = []  # List for authenticated user's company id
+    for comp in comdeptuser:
+        # Getting primery key of Company model for remove same company id filterd by authenticated user's company id
+        compdata = Company.objects.filter(name=comp.compid).all()
         for c in compdata:
-            request.session['comp_id'] = c.id  # Store company id in session
-        return redirect('dashboard')  # Show the dashboard page
-    else:
-        allcomp = Company.objects.all()  # Getting all data from Company model
-        # Getting company id for authenticated user which are given in the CompanyDeptUser model
-        comdeptuser = CompanyDeptUser.objects.filter(user=request.user)
-        compid = []  # List for authenticated user's company id
-        for comp in comdeptuser:
-            # Getting primery key of Company model for remove same company id filterd by authenticated user's company id
-            compdata = Company.objects.filter(name=comp.compid).all()
-            for c in compdata:
-                # Append company model's primery key in the list of compid
-                compid.append(c.id)
-        scompid = set(compid)  # Remove same company id by using set method
-        usercompid = list(scompid)  # Making a list of company id
-        # Send the all company info and authenticated user's company id as a context
-        context = {'allcomp': allcomp, 'usercompid': usercompid}
-        # Show the select company page
-        return render(request, 'accounts/select_company.html', context)
+            # Append company model's primery key in the list of compid
+            compid.append(c.id)
+    scompid = set(compid)  # Remove same company id by using set method
+    usercompid = list(scompid)  # Making a list of company id
+    # Send the all company info and authenticated user's company id as a context
+    context = {'allcomp': allcomp, 'usercompid': usercompid}
+    # Show the select company page
+    return render(request, 'accounts/select_company.html', context)
 
 
 # Logout method for the logout
