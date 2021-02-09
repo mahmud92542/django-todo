@@ -23,5 +23,5 @@ def dashboard(request, company_id):
 
 
 def dashcreate(request, f_id):
-    if request.method == 'GET':
+    if request.method == 'POST':
         return render(request, 'departments/dashcreate.html')

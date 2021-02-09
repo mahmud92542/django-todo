@@ -13,7 +13,7 @@
       >
         {{ d.deptid }}
       </button>
-      <form method="post" action="{% url 'department:create' d.id %}">
+      <form method="POST" action="{% url 'department:create' d.id %}">
         {% csrf_token %}
         {% if d.id in permission_department_list %}
         <input
