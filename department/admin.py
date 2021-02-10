@@ -7,6 +7,7 @@ class CompanyDeptUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Department)
+admin.site.register(Work)
 admin.site.register(Company)
 admin.site.register(CompanyDept)
 admin.site.register(CompanyDeptUser, CompanyDeptUserAdmin)
