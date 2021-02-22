@@ -15,7 +15,7 @@
       </button>
       <form method="POST" action="{% url 'department:create' d.id %}">
         {% csrf_token %}
-        {% if d.id in permission_department_list %}
+        {% if d.deptid.id in permission_department_list %}
         <input
           type="submit"
           class="btn btn-info"
