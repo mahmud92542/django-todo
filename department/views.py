@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .models import *
+from django.shortcuts import render
+from django.shortcuts import redirect
+from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 # dashboard page functionality...
@@ -18,6 +21,11 @@ def dashboard(request, company_id):
 
     for dept in compdept:
         permission_department_list.append(dept.deptid.id)
+
+    for d in department:
+        print(d.deptid.id)
+    print(permission_department_list)
+    
     context = {
         'department': department,
         'compdept': compdept,
@@ -28,10 +36,7 @@ def dashboard(request, company_id):
 
 @login_required
 def dashcreate(request, f_id):
-    if request.method == "POST":
-        form = WorkForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = WorkForm()
-        return render(request, 'departments/dashcreate.html', {'form': form})
+    form = WorkForm()
+    form.createdby = request.user
+    return render(request, 'departments/dashcreate.html', {'form': form})
+
