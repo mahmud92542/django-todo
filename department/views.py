@@ -22,7 +22,7 @@ def dashboard(request, company_id):
     for d in department:
         print(d.deptid.id)
     print(permission_department_list)
-    
+
     context = {
         'department': department,
         'compdept': compdept,
@@ -32,14 +32,18 @@ def dashboard(request, company_id):
 
 
 @login_required
-def dashcreate(request,compid, f_id):
+def dashcreate(request, compid, f_id):
     if request.method == 'POST':
         form = WorkForm(request.POST)
+        company = Company.objects.get(id=compid)
+        department = Department.objects.get(id=f_id)
         if form.is_valid():
             work = form.save(commit=False)
-            print(request.user)
             work.createdby = request.user
+            work.compid = company
+            work.deptid = department
             work.save()
-            return redirect('dashboard',company_id=compid)
-    form = WorkForm()
-    return render(request,'departments/dashcreate.html',{'form':form})
+            return redirect('department:dashboard', company_id=compid)
+    else:
+        form = WorkForm()
+        return render(request,'departments/dashcreate.html',{'form':form})
