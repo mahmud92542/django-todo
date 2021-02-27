@@ -4,5 +4,5 @@ app_name = 'department'
 
 urlpatterns = [
     path('<int:company_id>/', dashboard, name='dashboard'),
-    path('create/<int:f_id>', dashcreate, name='create'),
+    path('create/<int:compid>/<int:f_id>', dashcreate, name='create'),
 ]
