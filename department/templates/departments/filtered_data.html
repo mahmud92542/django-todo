@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+
+<body>
+
+    <h1>Test Route</h1>
+    <hr>
+    {% for item in queryset %}
+        <h2>Company Name: <span style="color: orangered">{{ item.compid.name }}</span></h2><br>
+{#        {{ item.title }}<br>#}
+{#        {{ item.createdby }}<br>#}
+{#        {{ item.updatedby }}<br>#}
+        <h3>Dept. ID: <span style="color: orangered">{{ item.deptid.id }}</span></h3>
+        <h3>Dept. Name: <span style="color: orangered">{{ item.deptid.name }}</span></h3>
+        <h3>Work Name: <span style="color: orangered">{{ item.title }}</span></h3>
+        <hr>
+    {% endfor %}
+
+
+</body>
+</html>

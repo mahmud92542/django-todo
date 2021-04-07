@@ -26,7 +26,10 @@ class CompanyDept(models.Model):
     deptid = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{}'.format(self.compid)
+        try:
+            return '{}'.format(self.compid)
+        except:
+            return None
 
 # creating company_dept_user table with multiple attributes
 
